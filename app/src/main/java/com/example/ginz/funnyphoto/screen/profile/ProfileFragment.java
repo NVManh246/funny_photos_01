@@ -24,7 +24,9 @@ import com.example.ginz.funnyphoto.data.source.source.UsersRepository;
 import com.example.ginz.funnyphoto.data.source.source.local.UserLocalDataSource;
 import com.example.ginz.funnyphoto.data.source.source.remote.PostsRemoteDataSource;
 import com.example.ginz.funnyphoto.data.source.source.remote.UsersRemoteDataSource;
-import com.example.ginz.funnyphoto.screen.profile.adapter.PhotoAdapter;
+import com.example.ginz.funnyphoto.screen.home.HomeFragment;
+import com.example.ginz.funnyphoto.screen.main.MainActivity;
+import com.example.ginz.funnyphoto.screen.post.PhotoAdapter;
 import com.example.ginz.funnyphoto.screen.profile.adapter.PostAdapter;
 import com.example.ginz.funnyphoto.data.model.Post;
 import com.example.ginz.funnyphoto.utils.Preconditions;
@@ -46,6 +48,14 @@ public class ProfileFragment extends Fragment implements ProfileContract.View{
     private ProfileContract.Presenter mPresenter;
     private SharedPreferences mSharedPreferences;
     private PhotoAdapter mPostAdapter;
+
+    public static ProfileFragment newInstance(User user) {
+        ProfileFragment fragment = new ProfileFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(MainActivity.ARGUMENT_USER, user);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Nullable
     @Override
@@ -82,13 +92,6 @@ public class ProfileFragment extends Fragment implements ProfileContract.View{
 
     private void setupRecycler(){
         mPosts = new ArrayList<>();
-
-        mPostAdapter = new PhotoAdapter(getActivity(), mPosts);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), SPAN_COUNT);
-        mRecyclerPost.setHasFixedSize(true);
-        mRecyclerPost.setLayoutManager(mLayoutManager);
-        mRecyclerPost.setAdapter(mPostAdapter);
-        mRecyclerPost.setNestedScrollingEnabled(false);
     }
 
     @Override

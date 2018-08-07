@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,15 +14,16 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".screen.profile.UpdateProfileActivity"/>
-        <activity android:name=".screen.login.LoginActivity"/>
-        <activity android:name=".screen.main.MainActivity">
+        <activity android:name=".screen.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".screen.main.MainActivity"/>
         <activity android:name=".screen.registration.RegistrationActivity" />
+        <activity android:name=".screen.post.PostPhotoActivity"/>
     </application>
 
 </manifest>

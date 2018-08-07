@@ -66,6 +66,5 @@ public class PostsRemoteDataSource implements PostsDataSource.PostRemoteDataSour
     @Override
     public void likePost(@NonNull String username, @NonNull String postID,
                          @NonNull PostsDataSource.OnPostCompleteListener callback) {
-
     }
 }

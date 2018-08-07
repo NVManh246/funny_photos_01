@@ -6,7 +6,7 @@ import com.example.ginz.funnyphoto.data.model.Post;
 
 import java.util.List;
 
-public class PostsDataSource {
+public interface PostsDataSource {
 
     public interface OnPostCompleteListener {
         void onRequestSusscee(List<Post> response);

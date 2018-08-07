@@ -18,7 +18,7 @@ import com.example.ginz.funnyphoto.data.model.User;
 import com.example.ginz.funnyphoto.screen.main.MainActivity;
 import com.example.ginz.funnyphoto.screen.registration.RegistrationActivity;
 
-public abstract class LoginActivity extends AppCompatActivity
+public class LoginActivity extends AppCompatActivity
         implements View.OnClickListener, LoginContract.View{
 
     public static final String EXTRA_USER = "USER";
@@ -110,7 +110,6 @@ public abstract class LoginActivity extends AppCompatActivity
         Typeface mTypefaceLogo = Typeface.createFromAsset(getAssets(), FONT_PATH);
         mTextLogo.setTypeface(mTypefaceLogo);
     }
-
 
     private Intent getMainIntent(Context context, User user){
         Intent intent = new Intent(context, MainActivity.class);

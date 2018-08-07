@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.ginz.funnyphoto.R;
 import com.example.ginz.funnyphoto.data.model.Post;
 import com.example.ginz.funnyphoto.data.model.User;
+import com.example.ginz.funnyphoto.screen.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,14 @@ public class HomeFragment extends Fragment implements PostContact.View {
     private boolean mIsLoading;
     private boolean mIsLastPost;
 
+    public static HomeFragment newInstance(User user) {
+        HomeFragment fragment = new HomeFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(MainActivity.ARGUMENT_USER, user);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -42,7 +51,6 @@ public class HomeFragment extends Fragment implements PostContact.View {
         super.onActivityCreated(savedInstanceState);
         mActivity = getActivity();
         initView();
-
         mPresenter = new PostPresenter(this);
         mPresenter.loadMore(mPage++);
         setupRecycler();

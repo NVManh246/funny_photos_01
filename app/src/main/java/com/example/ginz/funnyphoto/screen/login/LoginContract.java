@@ -6,14 +6,14 @@ import com.example.ginz.funnyphoto.data.model.User;
 
 public interface LoginContract {
 
-    interface View extends BaseView<Presenter> {
+    interface View {
         void onShowProgress();
         void onHideProgress();
         void onShowError(int typeError);
         void navigateToMain(User user);
     }
 
-    interface Presenter extends BasePresenter{
+    interface Presenter{
         void login(String username, String password);
     }
 }

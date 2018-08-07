@@ -5,7 +5,7 @@ public final class Constants {
     private Constants() {}
 
     public class Server {
-        public static final String BASE_URL_API = "http://192.168.0.106:3000/";
+        public static final String BASE_URL_API = "http://192.168.2.229:3000/";
         public static final String RESOURCE_USER = BASE_URL_API + "users/";
         public static final String RESOURCE_PHOTO = BASE_URL_API + "photos?page=";
         public static final String RESOURCE_PHOTO_BY_OWNER = BASE_URL_API + "photos?owner=";
