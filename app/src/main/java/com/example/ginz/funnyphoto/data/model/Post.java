@@ -98,7 +98,6 @@ public class Post {
                 String id = jsonObjectPost.optString(Post.Key.ID, null);
                 String title = jsonObjectPost.optString(Post.Key.TITLE, null);
                 String imageUrl = jsonObjectPost.optString(Post.Key.IMAGE_URL, null);
-
                 Post post = new Post(id, user, title, null, imageUrl, like);
                 posts.add(post);
             }

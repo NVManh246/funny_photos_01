@@ -1,6 +1,7 @@
 package com.example.ginz.funnyphoto.screen.main;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import com.example.ginz.funnyphoto.R;
 import com.example.ginz.funnyphoto.data.model.User;
 import com.example.ginz.funnyphoto.screen.home.HomeFragment;
 import com.example.ginz.funnyphoto.screen.login.LoginActivity;
+import com.example.ginz.funnyphoto.screen.post.PostPhotoActivity;
 
 public class MainActivity extends AppCompatActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity
         int id = view.getId();
         switch (id){
             case R.id.image_new_post:
+                startActivity(getPostIntent(this, mUser));
                 break;
             case R.id.image_logo:
                 Dialog dialog = new Dialog(MainActivity.this);
@@ -111,5 +114,11 @@ public class MainActivity extends AppCompatActivity
         args.putParcelable(ARGUMENT_USER, user);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private Intent getPostIntent(Context context, User user){
+        Intent intent = new Intent(context, PostPhotoActivity.class);
+        intent.putExtra(LoginActivity.EXTRA_USER, user);
+        return intent;
     }
 }

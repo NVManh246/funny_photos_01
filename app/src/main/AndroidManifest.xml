@@ -24,6 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".screen.registration.RegistrationActivity" />
+        <activity android:name=".screen.post.PostPhotoActivity"/>
     </application>
 
 </manifest>

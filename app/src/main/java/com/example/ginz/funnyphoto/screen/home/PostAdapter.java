@@ -1,7 +1,9 @@
 package com.example.ginz.funnyphoto.screen.home;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +22,8 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
-    private Context mContext;
-    private List<Post> mPosts;
+    private static Context mContext;
+    private static List<Post> mPosts;
 
     public PostAdapter(Context context, List<Post> mosts) {
         mContext = context;

@@ -111,7 +111,6 @@ public class LoginActivity extends AppCompatActivity
         mTextLogo.setTypeface(mTypefaceLogo);
     }
 
-
     private Intent getMainIntent(Context context, User user){
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(EXTRA_USER, user);

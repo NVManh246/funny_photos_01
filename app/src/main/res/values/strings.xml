@@ -35,8 +35,11 @@
     <string name="action_forgot_password">Quên mật khẩu</string>
     <string name="action_login">Login</string>
     <string name="action_register">Đăng ký</string>
+    <string name="action_post">Post</string>
+    <string name="action_add_title">Thêm nội dung</string>
     <string name="error_user_or_password_incorrect">Sai mật khẩu hoặc tài khoản</string>
     <string name="error_connect">Lỗi kết nối</string>
+    <string name="error_any">Có lỗi xảy ra</string>
     <string name="title_email">Email</string>
     <string name="title_facebook">Facebook</string>
     <string name="title_fullname">Họ tên</string>

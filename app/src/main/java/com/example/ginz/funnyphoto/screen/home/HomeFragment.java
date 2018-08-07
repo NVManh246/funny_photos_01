@@ -42,7 +42,6 @@ public class HomeFragment extends Fragment implements PostContact.View {
         super.onActivityCreated(savedInstanceState);
         mActivity = getActivity();
         initView();
-
         mPresenter = new PostPresenter(this);
         mPresenter.loadMore(mPage++);
         setupRecycler();
