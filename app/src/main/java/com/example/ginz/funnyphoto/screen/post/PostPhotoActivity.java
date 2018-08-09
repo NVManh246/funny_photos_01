@@ -12,16 +12,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.example.ginz.funnyphoto.R;
+import com.example.ginz.funnyphoto.data.model.Post;
 import com.example.ginz.funnyphoto.data.model.User;
+import com.example.ginz.funnyphoto.data.source.PhotosRepository;
+import com.example.ginz.funnyphoto.data.source.local.PhotosLocalDataSource;
 import com.example.ginz.funnyphoto.screen.login.LoginActivity;
+import com.example.ginz.funnyphoto.utils.ImageHandler;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.List;
 
 public class PostPhotoActivity extends AppCompatActivity
-        implements PostPhotoContact.View, View.OnClickListener{
+        implements PostPhotoContact.View, View.OnClickListener, OnPhotoAdapterClickListener{
 
+    private PostPhotoContact.Presenter mPresenter;
     private RecyclerView mRecyclerPhoto;
     private PhotoAdapter mPhotoAdapter;
     private List<String> mPhotoPaths;
@@ -35,10 +40,13 @@ public class PostPhotoActivity extends AppCompatActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
-
         initView();
         setupRecyclerPhoto();
         mUser = getUser();
+        mPresenter = new PostPhotoPresenter(
+                PhotosRepository.getInstance(PhotosLocalDataSource.getInstance(this)),
+                this);
+        mPresenter.loadPhoto();
     }
 
     @Override
@@ -57,19 +65,20 @@ public class PostPhotoActivity extends AppCompatActivity
         finish();
     }
 
-//    @Override
-//    public void onClickPhoto(int position) {
-//        mImagePhotoSelectedPath = mPhotoPaths.get(position);
-//        Picasso.with(this)
-//                .load(new File(mImagePhotoSelectedPath))
-//                .into(mImagePhotoSelected);
-//    }
+    @Override
+    public void onClickPhoto(int position) {
+        mImagePhotoSelectedPath = mPhotoPaths.get(position);
+        Picasso.with(this)
+                .load(new File(mImagePhotoSelectedPath))
+                .into(mImagePhotoSelected);
+    }
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
         switch (id){
             case R.id.button_post:
+                mPresenter.post(getPost());
                 break;
         }
     }
@@ -83,7 +92,7 @@ public class PostPhotoActivity extends AppCompatActivity
     }
 
     private void setupRecyclerPhoto(){
-        mPhotoAdapter = new PhotoAdapter(this, mPhotoPaths);
+        mPhotoAdapter = new PhotoAdapter(this, mPhotoPaths, this);
         mRecyclerPhoto.setAdapter(mPhotoAdapter);
         mRecyclerPhoto.setLayoutManager(new GridLayoutManager(this, 3));
     }
@@ -92,5 +101,11 @@ public class PostPhotoActivity extends AppCompatActivity
         Intent intent = getIntent();
         User user = intent.getParcelableExtra(LoginActivity.EXTRA_USER);
         return user;
+    }
+
+    private Post getPost(){
+        String title = mEditTitle.getText().toString();
+        Post post = new Post(mUser, title, ImageHandler.imageToString(mImagePhotoSelectedPath));
+        return post;
     }
 }

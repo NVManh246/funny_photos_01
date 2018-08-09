@@ -47,7 +47,6 @@ public class GetDataAsyncTask extends AsyncTask<String, Void, String>{
             setupParameter(mParameters);
             return response();
         } catch (IOException e) {
-            mOnCompleteListener.onRequestError(e);
             e.printStackTrace();
         }
         return null;
@@ -56,7 +55,11 @@ public class GetDataAsyncTask extends AsyncTask<String, Void, String>{
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        mOnCompleteListener.onRequestSusscee(s);
+        if(s != null){
+            mOnCompleteListener.onRequestSusscee(s);
+        } else {
+            mOnCompleteListener.onRequestError(null);
+        }
     }
 
     private String response() throws IOException {

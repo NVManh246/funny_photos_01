@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.ginz.funnyphoto.R;
 import com.example.ginz.funnyphoto.data.model.Post;
 import com.example.ginz.funnyphoto.data.model.User;
+import com.example.ginz.funnyphoto.screen.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class HomeFragment extends Fragment implements PostContact.View {
     private List<Post> mPosts;
     private boolean mIsLoading;
     private boolean mIsLastPost;
+    private User mUser;
 
     @Nullable
     @Override
@@ -46,6 +48,7 @@ public class HomeFragment extends Fragment implements PostContact.View {
         mPresenter.loadMore(mPage++);
         setupRecycler();
         loadMore();
+        mUser = getUser();
     }
 
     @Override
@@ -69,6 +72,15 @@ public class HomeFragment extends Fragment implements PostContact.View {
                 Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mPosts.clear();
+        mPostAdapter.notifyDataSetChanged();
+        mPage = 1;
+        mPresenter.loadMore(mPage++);
+    }
+
     private void initView(){
         mRecyclerPost = mActivity.findViewById(R.id.recycler_post);
     }
@@ -79,6 +91,11 @@ public class HomeFragment extends Fragment implements PostContact.View {
         mRecyclerPost.setAdapter(mPostAdapter);
         mLayoutManager = new LinearLayoutManager(mActivity);
         mRecyclerPost.setLayoutManager(mLayoutManager);
+    }
+
+    private User getUser(){
+        User user = (User) getArguments().get(MainActivity.ARGUMENT_USER);
+        return user;
     }
 
     private void loadMore(){

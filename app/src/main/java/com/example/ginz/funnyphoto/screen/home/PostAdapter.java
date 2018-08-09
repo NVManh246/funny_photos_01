@@ -1,6 +1,7 @@
 package com.example.ginz.funnyphoto.screen.home;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -87,6 +88,7 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mTextUserName = itemView.findViewById(R.id.text_username_post);
             mTextPostTime = itemView.findViewById(R.id.text_time_post);
             mTextContent = itemView.findViewById(R.id.text_content_post);
+            
         }
 
         private void bindView(Context context, List<Post> posts, int position){

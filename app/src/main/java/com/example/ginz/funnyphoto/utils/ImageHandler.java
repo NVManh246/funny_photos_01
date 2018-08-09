@@ -25,6 +25,19 @@ public final class ImageHandler {
         return "";
     }
 
+    public static String imageToString(String photoPath) {
+        Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
+        if(bitmap != null) {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, ENCODE_QUALITY, outputStream);
+            byte[] imageBytes = outputStream.toByteArray();
+
+            String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+            return encodedImage;
+        }
+        return "";
+    }
+
     private Bitmap decodeImage(String path){
         File file = new File(path);
         try {

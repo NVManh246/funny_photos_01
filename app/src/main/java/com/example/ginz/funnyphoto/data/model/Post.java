@@ -15,15 +15,20 @@ public class Post {
     private String mPostTime;
     private String mImagePath;
     private int mLikes;
+    private boolean mIsLiked;
 
     public Post(){}
 
-    public Post(String id, User userPosted, String title, String postTime, String imagePath, int likes) {
-        mId = id;
-        mUserPosted = userPosted;
+    public Post(User user, String title, String image){
+        mUserPosted = user;
         mTitle = title;
+        mImagePath = image;
+    }
+
+    public Post(String id, User userPosted, String title, String postTime, String imagePath, int likes) {
+        this(userPosted, title, imagePath);
+        mId = id;
         mPostTime = postTime;
-        mImagePath = imagePath;
         mLikes = likes;
     }
 
@@ -75,12 +80,25 @@ public class Post {
         mLikes = likes;
     }
 
+    public boolean isLiked() {
+        return mIsLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        mIsLiked = liked;
+    }
+
     public static class Key {
         public static final String OWNER = "owner";
         public static final String LOVE = "love";
         public static final String ID = "_id";
+        public static final String POST_ID = "postId";
         public static final String TITLE = "title";
         public static final String IMAGE_URL = "url";
+        public static final String RAW_PHOTO = "rawPhoto";
+        public static final String OWNER_NAME = "ownerName";
+        public static final String OWNER_AVATAR = "ownerAvatar";
+        public static final String OWNER_USERNAME = "ownerUsername";
     }
 
     public static List<Post> parsePosts(String jsonData) throws JSONException {
@@ -92,13 +110,14 @@ public class Post {
             JSONArray jsonArray = jsonObjectData.getJSONArray(Constants.Authentication.DOCS);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObjectPost = jsonArray.getJSONObject(i);
-                JSONObject josnObjectOwner = jsonObjectPost.getJSONObject(Post.Key.OWNER);
+                JSONObject josnObjectOwner = jsonObjectPost.getJSONObject(Key.OWNER);
                 User user = getOwner(josnObjectOwner);
-                int like = jsonObjectPost.optInt(Post.Key.LOVE, 0);
-                String id = jsonObjectPost.optString(Post.Key.ID, null);
-                String title = jsonObjectPost.optString(Post.Key.TITLE, null);
-                String imageUrl = jsonObjectPost.optString(Post.Key.IMAGE_URL, null);
-                Post post = new Post(id, user, title, null, imageUrl, like);
+                int like = jsonObjectPost.optInt(Key.LOVE, 0);
+                String id = jsonObjectPost.optString(Key.ID, null);
+                String title = jsonObjectPost.optString(Key.TITLE, null);
+                String imageUrl = Constants.Server.BASE_URL_API
+                        + jsonObjectPost.optString(Key.IMAGE_URL, null);
+                Post post = new Post(id, user, title, null, handlerURL(imageUrl), like);
                 posts.add(post);
             }
         }
@@ -110,5 +129,11 @@ public class Post {
         String avatar = data.optString(User.Key.AVATAR, null);
         User user = new User(username, avatar);
         return user;
+    }
+
+    private static String handlerURL(String url){
+        url = url.replace("\\", "/");
+        url = url.replace("/public", "");
+        return url;
     }
 }

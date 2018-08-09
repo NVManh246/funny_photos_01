@@ -18,10 +18,12 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
 
     private static Context mContext;
     private static List<String> mPhotos;
+    private static OnPhotoAdapterClickListener mListener;
 
-    public PhotoAdapter(Context context, List<String> photos) {
+    public PhotoAdapter(Context context, List<String> photos, OnPhotoAdapterClickListener listener) {
         mContext = context;
         mPhotos = photos;
+        mListener = listener;
     }
 
     @NonNull
@@ -47,18 +49,24 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
         this.notifyDataSetChanged();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private ImageView mImagePhoto;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mImagePhoto = itemView.findViewById(R.id.image_photo);
+            mImagePhoto.setOnClickListener(this);
         }
 
         private void bindView(int position){
             String photoPath = mPhotos.get(position);
             Picasso.with(mContext).load(new File(photoPath)).into(mImagePhoto);
+        }
+
+        @Override
+        public void onClick(View view) {
+            mListener.onClickPhoto(getAdapterPosition());
         }
     }
 }

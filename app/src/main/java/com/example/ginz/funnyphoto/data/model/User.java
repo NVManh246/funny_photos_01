@@ -110,13 +110,13 @@ public class User implements Parcelable{
         JSONObject jsonObject = new JSONObject(data);
         String message = jsonObject.getString(Constants.Authentication.KEY_MESSAGE);
         if(message.equals(Constants.Authentication.MESSAGE_OK)){
-            JSONObject jsonUser = jsonObject.getJSONObject(User.Key.USER);
-            String username = jsonUser.optString(User.Key.USERNAME, null);
-            String password = jsonUser.optString(User.Key.PASSWORD, null);
-            String email = jsonUser.optString(User.Key.EMAIL, null);
-            String fullName = jsonUser.optString(User.Key.FULL_NAME, null);
-            String avatar = jsonUser.optString(User.Key.AVATAR, null);
-            User user = new User(username, password, fullName, email, avatar);
+            JSONObject jsonUser = jsonObject.getJSONObject(Key.USER);
+            String username = jsonUser.optString(Key.USERNAME, null);
+            String password = jsonUser.optString(Key.PASSWORD, null);
+            String email = jsonUser.optString(Key.EMAIL, null);
+            String fullName = jsonUser.optString(Key.FULL_NAME, null);
+            String avatar = jsonUser.optString(Key.AVATAR, null);
+            User user = new User(username, password, fullName, avatar, email);
             return user;
         } else {
             return null;

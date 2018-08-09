@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import com.example.ginz.funnyphoto.configuration.Constants;
 import com.example.ginz.funnyphoto.data.model.Post;
+import com.example.ginz.funnyphoto.data.model.User;
 import com.example.ginz.funnyphoto.data.source.GetDataAsyncTask;
 import com.example.ginz.funnyphoto.data.source.OnCompleteListener;
 import com.example.ginz.funnyphoto.data.source.PostsDataSource;
@@ -54,8 +55,28 @@ public class PostsRemoteDataSource implements PostsDataSource.PostRemoteDataSour
     }
 
     @Override
-    public void savePost(@NonNull Post post) {
+    public void savePost(@NonNull Post post, @NonNull final PostsDataSource.OnPostCompleteListener callback) {
+        User user = post.getUserPosted();
+        new GetDataAsyncTask.Builder()
+                .setApiUrl(Constants.Server.ACTION_POST)
+                .addParameter(Post.Key.TITLE, post.getTitle())
+                .addParameter(Post.Key.RAW_PHOTO, post.getImagePath())
+                .addParameter(Post.Key.OWNER_NAME, user.getFullName())
+                .addParameter(Post.Key.OWNER_AVATAR, user.getAvatar())
+                .addParameter(Post.Key.OWNER_USERNAME, user.getUsername())
+                .addOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onRequestSusscee(@NonNull String response) {
+                        callback.onRequestSusscee(response);
+                    }
 
+                    @Override
+                    public void onRequestError(Exception e) {
+                        callback.onRequestError(e);
+                    }
+                })
+                .build()
+                .execute();
     }
 
     @Override
@@ -65,6 +86,6 @@ public class PostsRemoteDataSource implements PostsDataSource.PostRemoteDataSour
 
     @Override
     public void likePost(@NonNull String username, @NonNull String postID,
-                         @NonNull PostsDataSource.OnPostCompleteListener callback) {
+                         @NonNull final PostsDataSource.OnPostCompleteListener callback) {
     }
 }

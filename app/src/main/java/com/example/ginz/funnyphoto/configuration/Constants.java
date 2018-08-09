@@ -5,12 +5,15 @@ public final class Constants {
     private Constants() {}
 
     public class Server {
-        public static final String BASE_URL_API = "http://167.99.74.194:3000/";
+        public static final String BASE_URL_API = "http://192.168.2.229:3000/";
         public static final String RESOURCE_USER = BASE_URL_API + "users/";
         public static final String RESOURCE_PHOTO = BASE_URL_API + "photos?page=";
         public static final String ACTION_UPDATE_PROFILE = BASE_URL_API + "users/update";
         public static final String ACTION_LOGIN = RESOURCE_USER + "login/";
         public static final String ACTION_REGISTER = RESOURCE_USER + "register/";
+        public static final String ACTION_LIKE = BASE_URL_API + "photos/love/";
+        public static final String ACTION_POST = BASE_URL_API + "photos/add/";
+        public static final String LIKES = BASE_URL_API + "likes/";
     }
 
     public class Authentication {

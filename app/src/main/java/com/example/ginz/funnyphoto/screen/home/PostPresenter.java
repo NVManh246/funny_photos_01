@@ -23,7 +23,7 @@ public class PostPresenter implements PostContact.Presenter {
 
     @Override
     public void loadMore(int page) {
-        mRepository.getPost(page, new PostsDataSource.OnPostCompleteListener() {
+        mRepository.getPost(page, new PostsDataSource.OnPostCompleteListener<List<Post>>() {
             @Override
             public void onRequestSusscee(List<Post> response) {
                 if(response.size() > 0) {
