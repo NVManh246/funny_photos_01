@@ -14,14 +14,14 @@ public class UsersRemoteDataSource implements UserDataSource.RemoteDataSource{
 
     private static UsersRemoteDataSource sInstance;
 
+    private UsersRemoteDataSource() {}
+
     public static UsersRemoteDataSource getInstance() {
         if(sInstance == null) {
             sInstance = new UsersRemoteDataSource();
         }
         return sInstance;
     }
-
-    private UsersRemoteDataSource() {}
 
     @Override
     public void getUser(@NonNull String username, @NonNull UserDataSource.GetUserCallback callback){
@@ -36,10 +36,10 @@ public class UsersRemoteDataSource implements UserDataSource.RemoteDataSource{
 
         GetDataAsyncTask asyncTask = new GetDataAsyncTask.Builder()
                 .setApiUrl(Constants.Server.ACTION_REGISTER)
-                .addParameter(Constants.Key.USERNAME, username)
-                .addParameter(Constants.Key.PASSWORD, password)
-                .addParameter(Constants.Key.EMAIL, email)
-                .addParameter(Constants.Key.FULL_NAME, fullName)
+                .addParameter(User.Key.USERNAME, username)
+                .addParameter(User.Key.PASSWORD, password)
+                .addParameter(User.Key.EMAIL, email)
+                .addParameter(User.Key.FULL_NAME, fullName)
                 .addOnCompleteListener(new DataSource.OnCompleteListener() {
                     @Override
                     public void onRequestSuccess(String result) {
@@ -47,7 +47,7 @@ public class UsersRemoteDataSource implements UserDataSource.RemoteDataSource{
                             JSONObject jsonResult = new JSONObject(result);
                             String message = jsonResult.getString(Constants.Authentication.KEY_MESSAGE);
                             if(message.equals(Constants.Authentication.MESSAGE_OK)) {
-                                JSONObject objectUser = jsonResult.getJSONObject(Constants.Key.USER);
+                                JSONObject objectUser = jsonResult.getJSONObject(User.Key.USER);
                                 if(getUser(objectUser) != null) {
                                     callback.onRegisterUserSuccess(getUser(objectUser));
                                 }
@@ -85,11 +85,11 @@ public class UsersRemoteDataSource implements UserDataSource.RemoteDataSource{
 
         GetDataAsyncTask getDataAsyncTask = new GetDataAsyncTask.Builder()
                 .setApiUrl(Constants.Server.ACTION_UPDATE_PROFILE)
-                .addParameter(Constants.Key.AVATAR, bitmapAvatar)
-                .addParameter(Constants.Key.EMAIL, email)
-                .addParameter(Constants.Key.FULL_NAME, fullName)
-                .addParameter(Constants.Key.PASSWORD, password)
-                .addParameter(Constants.Key.USERNAME, username)
+                .addParameter(User.Key.AVATAR, bitmapAvatar)
+                .addParameter(User.Key.EMAIL, email)
+                .addParameter(User.Key.FULL_NAME, fullName)
+                .addParameter(User.Key.PASSWORD, password)
+                .addParameter(User.Key.USERNAME, username)
                 .addOnCompleteListener(new DataSource.OnCompleteListener() {
                     @Override
                     public void onRequestSuccess(String result) {
@@ -98,7 +98,7 @@ public class UsersRemoteDataSource implements UserDataSource.RemoteDataSource{
 
                             String message = jsonResult.getString(Constants.Authentication.KEY_MESSAGE);
                             if(message.equals(Constants.Authentication.MESSAGE_OK)) {
-                                JSONObject objectUser = jsonResult.getJSONObject(Constants.Key.USER);
+                                JSONObject objectUser = jsonResult.getJSONObject(User.Key.USER);
                                 User userUpdated = getUser(objectUser);
 
                                     callback.onUpdateUserSuccess(userUpdated);
@@ -123,11 +123,11 @@ public class UsersRemoteDataSource implements UserDataSource.RemoteDataSource{
     }
 
     private User getUser(JSONObject objectUser) throws JSONException {
-                String registerUsername = objectUser.getString(Constants.Key.USERNAME);
-                String registerEmail = objectUser.getString(Constants.Key.EMAIL);
-                String registerFullname = objectUser.getString(Constants.Key.FULL_NAME);
-                String updatedAvatar = objectUser.optString(Constants.Key.AVATAR, "");
-                String registerPassword = objectUser.getString(Constants.Key.PASSWORD);
+                String registerUsername = objectUser.getString(User.Key.USERNAME);
+                String registerEmail = objectUser.getString(User.Key.EMAIL);
+                String registerFullname = objectUser.getString(User.Key.FULL_NAME);
+                String updatedAvatar = objectUser.optString(User.Key.AVATAR, "");
+                String registerPassword = objectUser.getString(User.Key.PASSWORD);
 
             User updatedUser = new User(registerUsername, registerPassword, registerFullname,
                     updatedAvatar, registerEmail);

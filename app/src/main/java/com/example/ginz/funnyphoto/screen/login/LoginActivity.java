@@ -18,7 +18,7 @@ import com.example.ginz.funnyphoto.data.model.User;
 import com.example.ginz.funnyphoto.screen.main.MainActivity;
 import com.example.ginz.funnyphoto.screen.registration.RegistrationActivity;
 
-public class LoginActivity extends AppCompatActivity
+public abstract class LoginActivity extends AppCompatActivity
         implements View.OnClickListener, LoginContract.View{
 
     public static final String EXTRA_USER = "USER";

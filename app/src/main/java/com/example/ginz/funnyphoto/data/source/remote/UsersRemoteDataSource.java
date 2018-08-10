@@ -28,8 +28,8 @@ public class UsersRemoteDataSource implements UsersDataSource.UserRemoteDataSour
                         @NonNull final UsersDataSource.OnUserCompleteListener callback) {
         new GetDataAsyncTask.Builder()
                 .setApiUrl(Constants.Server.ACTION_LOGIN)
-                .addParameter(Constants.Key.USERNAME, username)
-                .addParameter(Constants.Key.PASSWORD, password)
+                .addParameter(User.Key.USERNAME, username)
+                .addParameter(User.Key.PASSWORD, password)
                 .addOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onRequestSusscee(@NonNull final String response) {

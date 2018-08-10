@@ -5,6 +5,7 @@ import com.example.ginz.funnyphoto.configuration.Constants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,16 @@ public class Post {
 
     public Post(){}
 
-    public Post(String id, User userPosted, String title, String postTime, String imagePath, int likes) {
+    public Post(String id, String title, String postTime, String imagePath, int likes) {
+        this.mId = id;
+        this.mTitle = title;
+        this.mPostTime = postTime;
+        this.mImagePath = imagePath;
+        this.mLikes = likes;
+    }
+
+    public Post(String id, User userPosted, String title, String postTime, String imagePath,
+        int likes) {
         mId = id;
         mUserPosted = userPosted;
         mTitle = title;

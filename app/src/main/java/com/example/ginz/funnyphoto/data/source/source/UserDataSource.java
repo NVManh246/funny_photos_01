@@ -12,7 +12,7 @@ public interface UserDataSource {
 
         void onUserLoaded(User user);
 
-        void onDataNotAvailable();
+        void onDataNotAvailable(Exception exception);
     }
 
     interface UpdateUserCallback {
@@ -31,6 +31,15 @@ public interface UserDataSource {
         void onRegisterUserSuccess(User user);
 
         void onRegisterUserError(Exception message);
+    }
+
+    interface LocalDataSource {
+
+        void getLocalUser(@NonNull GetUserCallback callback);
+
+        void saveLocalUser(@NonNull User user);
+
+        void updateLocalUser(@NonNull User user, @NonNull UpdateUserCallback callback);
     }
 
     interface RemoteDataSource {

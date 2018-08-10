@@ -15,8 +15,8 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".screen.profile.UpdateProfileActivity"/>
-        <activity android:name=".screen.main.MainActivity"/>
-        <activity android:name=".screen.login.LoginActivity">
+        <activity android:name=".screen.login.LoginActivity"/>
+        <activity android:name=".screen.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

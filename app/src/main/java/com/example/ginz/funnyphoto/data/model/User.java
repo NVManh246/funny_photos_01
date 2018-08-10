@@ -104,6 +104,8 @@ public class User implements Parcelable{
         public static final String FULL_NAME = "fullName";
         public static final String NAME = "name";
         public static final String AVATAR = "avatar";
+        public static final String DATA = "data";
+        public static final String DOCS = "docs";
     }
 
     public static User parseUser(String data) throws JSONException {

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.ginz.funnyphoto.R;
 import com.example.ginz.funnyphoto.data.model.User;
 import com.example.ginz.funnyphoto.data.source.source.UsersRepository;
+import com.example.ginz.funnyphoto.data.source.source.local.UserLocalDataSource;
 import com.example.ginz.funnyphoto.data.source.source.remote.UsersRemoteDataSource;
 import com.example.ginz.funnyphoto.screen.main.MainActivity;
 
@@ -39,8 +40,8 @@ public class RegistrationActivity extends AppCompatActivity implements RegisterC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mRegisterPresenter = new RegisterPresenter( UsersRepository.getInstance(UsersRemoteDataSource.getInstance()),
-                this);
+        mRegisterPresenter = new RegisterPresenter( UsersRepository.getInstance(
+                UsersRemoteDataSource.getInstance(), UserLocalDataSource.getInstance(this)),this);
 
         initView();
         setListener();

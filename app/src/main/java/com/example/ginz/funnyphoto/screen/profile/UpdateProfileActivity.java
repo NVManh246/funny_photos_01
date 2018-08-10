@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.ginz.funnyphoto.R;
 import com.example.ginz.funnyphoto.data.model.User;
 import com.example.ginz.funnyphoto.data.source.source.UsersRepository;
+import com.example.ginz.funnyphoto.data.source.source.local.UserLocalDataSource;
 import com.example.ginz.funnyphoto.data.source.source.remote.UsersRemoteDataSource;
 import com.example.ginz.funnyphoto.screen.main.MainActivity;
 import com.example.ginz.funnyphoto.utils.ImageHandler;
@@ -46,8 +47,8 @@ public class UpdateProfileActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_profile);
 
-        mPresenter = new UpdateProfilePresenter(UsersRepository
-                .getInstance(UsersRemoteDataSource.getInstance()), this);
+        mPresenter = new UpdateProfilePresenter(UsersRepository.getInstance(UsersRemoteDataSource
+                .getInstance(), UserLocalDataSource.getInstance(this)), this);
         initView();
         setListener();
     }

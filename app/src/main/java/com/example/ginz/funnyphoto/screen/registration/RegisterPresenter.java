@@ -49,35 +49,41 @@ public class RegisterPresenter implements RegisterContract.Presenter,
 
     @Override
     public void onRegisterUserError(Exception message) {
-
+        mRegisterView.onRegisterError(message.toString());
     }
 
     @Override
     public void doRegister(User user, boolean isChecked) {
         if(validateUser(user, isChecked)) {
             mUserRepository.saveUser(user, this);
+            mUserRepository.saveLocalUser(user);
         }
     }
 
     private boolean validateUser(User user, boolean register) {
         if(user.getUsername().isEmpty()) {
-            mRegisterView.onRegisterError(mRegisterView.getString(R.string.registration_username_required));
+            mRegisterView.onRegisterError(mRegisterView.getString(
+                    R.string.registration_username_required));
             return false;
         }
         if(user.getEmail().isEmpty()) {
-            mRegisterView.onRegisterError(mRegisterView.getString(R.string.registration_email_required));
+            mRegisterView.onRegisterError(mRegisterView.getString(
+                    R.string.registration_email_required));
             return false;
         }
         if(user.getPassword().isEmpty()) {
-            mRegisterView.onRegisterError(mRegisterView.getString(R.string.registration_password_required));
+            mRegisterView.onRegisterError(mRegisterView.getString(
+                    R.string.registration_password_required));
             return false;
         }
         if(user.getFullName().isEmpty()) {
-            mRegisterView.onRegisterError(mRegisterView.getString(R.string.registration_name_required));
+            mRegisterView.onRegisterError(mRegisterView.getString(
+                    R.string.registration_name_required));
             return  false;
         }
         if(!register) {
-            mRegisterView.onRegisterError(mRegisterView.getString(R.string.registration_check_policy_required));
+            mRegisterView.onRegisterError(mRegisterView.getString(
+                    R.string.registration_check_policy_required));
             return false;
         }
         return true;

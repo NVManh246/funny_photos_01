@@ -5,9 +5,8 @@ import android.support.annotation.NonNull;
 import com.example.ginz.funnyphoto.configuration.Constants;
 import com.example.ginz.funnyphoto.data.model.User;
 import com.example.ginz.funnyphoto.data.source.UsersDataSource;
-import com.example.ginz.funnyphoto.data.source.UsersRepository;
 import com.example.ginz.funnyphoto.data.source.remote.UsersRemoteDataSource;
-import org.json.JSONException;
+import com.example.ginz.funnyphoto.data.source.UsersRepository;
 
 public class LoginPresenter implements LoginContract.Presenter {
 
@@ -38,5 +37,10 @@ public class LoginPresenter implements LoginContract.Presenter {
                 mLoginView.onShowError(Constants.Authentication.ERROR_SERVER);
             }
         });
+    }
+
+    @Override
+    public void start() {
+
     }
 }
